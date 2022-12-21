@@ -37,15 +37,17 @@ class App extends Component {
   }
 
   onChangeSearchInput = event => {
+    // console.log(event.target.value)
     this.setState({
       searchInput: event.target.value,
     })
   }
 
-  deleteUser = uniqueNo => {
+  onDeleteUser = uniqueNo => {
+    console.log('onDeleteUser() function triggered')
     const {usersDetailsList} = this.state
     const filteredUsersData = usersDetailsList.filter(
-      each => each.uniqueNo !== uniqueNo,
+      eachUser => eachUser.uniqueNo !== uniqueNo,
     )
     this.setState({
       usersDetailsList: filteredUsersData,
@@ -54,6 +56,7 @@ class App extends Component {
 
   render() {
     const {searchInput, usersDetailsList} = this.state
+    console.log(searchInput)
     const searchResults = usersDetailsList.filter(eachUser =>
       eachUser.name.includes(searchInput),
     )
@@ -70,7 +73,7 @@ class App extends Component {
             <UserProfile
               userDetails={eachUser}
               key={eachUser.uniqueNo}
-              deleteUser={this.deleteUser}
+              onDeleteUser={this.onDeleteUser}
             />
           ))}
         </ul>
